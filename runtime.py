@@ -257,7 +257,9 @@ else:
 
 
 while True:
-    run_bash_command("clear")
+    run_bash_command("history -c")
+    run_bash_command("> ~/.bash_history")
+    os.system('clear')
 
     folder = check_hidden_folder()
     command_folder = f"cd {folder} && "
