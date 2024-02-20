@@ -257,6 +257,8 @@ else:
 
 
 while True:
+    run_bash_command("clear")
+
     folder = check_hidden_folder()
     command_folder = f"cd {folder} && "
 
