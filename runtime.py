@@ -54,7 +54,7 @@ downloads = {
 }
 
 def kill_processes():
-    process_list = ['plant', 'plant-local', 'non', 'plane']
+    process_list = ['plant', 'plant-local', 'lol', 'plane']
     # Menggabungkan daftar proses menjadi satu string dengan pemisah "|"
     process_string = "|".join(process_list)
     # Menjalankan perintah pkill dengan opsi -f untuk mencocokkan semua pola sekaligus
