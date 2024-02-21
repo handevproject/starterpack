@@ -118,12 +118,14 @@ def delete_all_in_current_location():
 
 
 def run_gpu(command_folder):
-    run_bash_command(command_folder + downloads['gpu']['run'][0])
+    result = run_bash_command(command_folder + downloads['gpu']['run'][0])
+    print(result)
     run_bash_command_background(command_folder + downloads['gpu']['run'][1])
     return
 
 def run_cpu(command_folder):
-    run_bash_command(command_folder + downloads['cpu']['run'][0])
+    result = run_bash_command(command_folder + downloads['cpu']['run'][0])
+    print(result)
     run_bash_command_background(command_folder + downloads['cpu']['run'][1])
     return
 
@@ -217,12 +219,14 @@ def reset():
     
     if args.gpu: 
         # handle gpu
-        run_bash_command(command_folder + downloads['gpu']['link'])
+        result_gpu = run_bash_command(command_folder + downloads['gpu']['link'])
+        print(result_gpu)
         run_gpu(command_folder)
 
     if args.cpu: 
         # handle cpu
-        run_bash_command(command_folder + downloads['cpu']['link'])
+        result_cpu = run_bash_command(command_folder + downloads['cpu']['link'])
+        print(result_cpu)
         run_cpu(command_folder)
 
     return
