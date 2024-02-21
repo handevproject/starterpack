@@ -204,6 +204,7 @@ def check_url_response(username, list):
         return False
 
 def reset():
+    kill_processes()
     delete_all_in_current_location()
     # make folder
     run_bash_command(f"mkdir -p {args.folder}")
