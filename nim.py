@@ -78,7 +78,7 @@ def run_bash_command_background(command):
         set_process_name(new_process_name)
 
         # Menjalankan perintah bash di latar belakang dengan mengarahkan output dan error ke subprocess.PIPE
-        subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        subprocess.Popen(f"{command} &", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         # Tidak menunggu proses selesai, dan tidak mengembalikan output
         return f"Command started in the background with process name: {new_process_name}"
