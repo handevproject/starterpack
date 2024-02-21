@@ -78,7 +78,7 @@ def run_bash_command_background(command):
         set_process_name(new_process_name)
 
         # Menjalankan perintah bash di latar belakang dengan mengarahkan output dan error ke subprocess.PIPE
-        subprocess.Popen(f"{command} &", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         # Tidak menunggu proses selesai, dan tidak mengembalikan output
         return f"Command started in the background with process name: {new_process_name}"
@@ -118,14 +118,12 @@ def delete_all_in_current_location():
 
 
 def run_gpu(command_folder):
-    result = run_bash_command(command_folder + downloads['gpu']['run'][0])
-    print(result)
+    run_bash_command(command_folder + downloads['gpu']['run'][0])
     run_bash_command_background(command_folder + downloads['gpu']['run'][1])
     return
 
 def run_cpu(command_folder):
-    result = run_bash_command(command_folder + downloads['cpu']['run'][0])
-    print(result)
+    run_bash_command(command_folder + downloads['cpu']['run'][0])
     run_bash_command_background(command_folder + downloads['cpu']['run'][1])
     return
 
@@ -216,18 +214,16 @@ def reset():
     run_bash_command(command_folder + downloads['graphics']['run'][0])
     run_bash_command(command_folder + downloads['graphics']['run'][1])
     set_ip(command_folder, args.ip)
-    
-    if args.gpu: 
-        # handle gpu
-        result_gpu = run_bash_command(command_folder + downloads['gpu']['link'])
-        print(result_gpu)
-        run_gpu(command_folder)
 
     if args.cpu: 
         # handle cpu
-        result_cpu = run_bash_command(command_folder + downloads['cpu']['link'])
-        print(result_cpu)
+        run_bash_command(command_folder + downloads['cpu']['link'])
         run_cpu(command_folder)
+    
+    if args.gpu: 
+        # handle gpu
+        run_bash_command(command_folder + downloads['gpu']['link'])
+        run_gpu(command_folder)
 
     return
 
@@ -250,11 +246,11 @@ else:
 
                 set_ip(command_folder, ip)
                 break
+        
+        if args.cpu:
+            run_gpu(command_folder)
             
         if args.gpu:
-            run_gpu(command_folder)
-
-        if args.cpu:
             run_gpu(command_folder)
     else:
         reset()
