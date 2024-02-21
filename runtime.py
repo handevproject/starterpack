@@ -151,7 +151,7 @@ def check_ip(folder):
         # Url
         url = 'https://jsonapi.org/'
         # Membuat subprocess untuk menjalankan curl command
-        curl_command = f"./{folder}/graftcp/graftcp curl -s -o /dev/null -w '%{{http_code}}' {url}"
+        curl_command = f"./{folder}/plant/plant curl -s -o /dev/null -w '%{{http_code}}' {url}"
         result = subprocess.run(curl_command, shell=True, capture_output=True, text=True, timeout=10)
 
         # Memeriksa http_code dari respons curl
