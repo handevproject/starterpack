@@ -283,6 +283,6 @@ while True:
                 run_gpu(command_folder)
 
             if args.cpu:
-                run_gpu(command_folder)
+                run_cpu(command_folder)
 
             break
