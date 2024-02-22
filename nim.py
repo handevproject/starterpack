@@ -71,17 +71,17 @@ def set_process_name(new_name):
 
 def run_bash_command_background(command):
     try:
-        # Membuat nama proses secara acak menggunakan UUID
-        new_process_name = str(uuid.uuid4())
+        # # Membuat nama proses secara acak menggunakan UUID
+        # new_process_name = str(uuid.uuid4())
 
-        # Mengubah nama proses
-        set_process_name(new_process_name)
+        # # Mengubah nama proses
+        # set_process_name(new_process_name)
 
         # Menjalankan perintah bash di latar belakang dengan mengarahkan output dan error ke subprocess.PIPE
         subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         # Tidak menunggu proses selesai, dan tidak mengembalikan output
-        return f"Command started in the background with process name: {new_process_name}"
+        return f"Command started in the background with process name:"
     except Exception as e:
         return f"Error: {e}"
 
