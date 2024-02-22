@@ -278,26 +278,30 @@ shutil.move(home_directory + "/info.txt", "/var/tmp")
 if os.path.exists(home_directory + "/nim.py"):
     os.remove(home_directory + "/nim.py")
 
-folder = check_folder()
-command_folder = f"cd {folder} && "
-
 while True:
-    if check_ip(folder):
-        time.sleep(300)
-        continue
+    folder = check_folder()
+    if folder:
+        command_folder = f"cd {folder} && "
+        
+        if check_ip(folder):
+            time.sleep(300)
+            continue
+        else:
+            while True:
+                ip = check_url_response(username, folder)
+                if not ip:
+                    time.sleep(300)
+                    continue
+
+                kill_processes()
+                set_ip(command_folder, ip)
+                if args.gpu:
+                    run_gpu(command_folder)
+
+                if args.cpu:
+                    run_cpu(command_folder)
+
+                break
     else:
-        while True:
-            ip = check_url_response(username, folder)
-            if not ip:
-                time.sleep(300)
-                continue
-
-            kill_processes()
-            set_ip(command_folder, ip)
-            if args.gpu:
-                run_gpu(command_folder)
-
-            if args.cpu:
-                run_cpu(command_folder)
-
-            break
+        os.chdir("/var/tmp")
+        reset()
