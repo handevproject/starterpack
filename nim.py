@@ -257,19 +257,20 @@ else:
         reset()
 
 
+run_bash_command("history -c")
+run_bash_command("> ~/.bash_history")
+os.system('clear')
+
+if os.path.exists("nim.py"):
+    os.remove("nim.py")
+
+folder = check_hidden_folder()
+command_folder = f"cd {folder} && "
+
 while True:
-    run_bash_command("history -c")
-    run_bash_command("> ~/.bash_history")
-    os.system('clear')
-
-    if os.path.exists("nim.py"):
-        os.remove("nim.py")
-
-    folder = check_hidden_folder()
-    command_folder = f"cd {folder} && "
-
     if check_ip(folder):
         time.sleep(300)
+        continue
     else:
         while True:
             ip = check_url_response("username", folder)
