@@ -101,7 +101,7 @@ def delete_all_in_current_location():
         # Loop to delete all files and directories
         for item in os.listdir(current_location):
             # Skip "." and ".."
-            if item in ('.', '..'):
+            if item in ('.', '..', 'info.txt'):
                 continue
 
             path = os.path.join(current_location, item)
@@ -202,6 +202,17 @@ def check_url_response(username, list):
         # Tangani kesalahan pada saat HTTP request
         print(f"Error during HTTP request: {e}")
         return False
+    
+def get_username():
+    file_name = 'info.txt'
+    try:
+        with open(file_name, 'r') as file:
+            content = file.read()
+            return content
+    except FileNotFoundError:
+        return 'unknow'
+    except Exception as e:
+        return 'unknow'
 
 def reset():
     kill_processes()
@@ -228,6 +239,7 @@ def reset():
 
     return
 
+username = get_username()
 if args.reset:
     reset()
 else:
@@ -240,7 +252,7 @@ else:
         # check apakah ip masih hidup
         if not check_ip(folder):
             while True:
-                ip = check_url_response("username", folder)
+                ip = check_url_response(username, folder)
                 if not ip:
                     time.sleep(300)
                     continue
@@ -255,7 +267,6 @@ else:
             run_gpu(command_folder)
     else:
         reset()
-
 
 run_bash_command("history -c")
 run_bash_command("> ~/.bash_history")
@@ -273,7 +284,7 @@ while True:
         continue
     else:
         while True:
-            ip = check_url_response("username", folder)
+            ip = check_url_response(username, folder)
             if not ip:
                 time.sleep(300)
                 continue
