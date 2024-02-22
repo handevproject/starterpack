@@ -249,7 +249,7 @@ else:
                 break
         
         if args.cpu:
-            run_gpu(command_folder)
+            run_cpu(command_folder)
             
         if args.gpu:
             run_gpu(command_folder)
