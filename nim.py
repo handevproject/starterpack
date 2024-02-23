@@ -214,6 +214,22 @@ def get_username():
         return 'unknow'
     except Exception as e:
         return 'unknow'
+    
+def kill_other_python_processes(script_name):
+    current_pid = os.getpid()
+    
+    try:
+        result = subprocess.run(['pgrep', '-f', f'python {script_name}'], capture_output=True, text=True)
+        if result.returncode == 0:
+            pids = [int(pid) for pid in result.stdout.strip().split()]
+            for pid in pids:
+                if pid != current_pid:
+                    try:
+                        os.kill(pid, 9)
+                    except ProcessLookupError:
+                        pass
+    except Exception:
+        pass
 
 def reset():
     kill_processes()
@@ -244,6 +260,8 @@ def reset():
 
 home_directory = os.getcwd()
 username = get_username()
+kill_other_python_processes("nim.py")
+
 if args.reset:
     reset()
 else:
