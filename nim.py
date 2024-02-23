@@ -286,6 +286,7 @@ if os.path.exists(home_directory + "/info.txt"):
 if os.path.exists(home_directory + "/nim.py"):
     os.remove(home_directory + "/nim.py")
 
+os.chdir("/var/tmp")
 folder = check_folder()
 command_folder = f"cd {folder} && "
 
