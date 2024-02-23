@@ -217,6 +217,7 @@ def get_username():
 def reset():
     kill_processes()
     delete_all_in_current_location()
+    os.chdir("/var/tmp")
     # make folder
     run_bash_command(f"mkdir -p {args.folder}")
     command_folder = f"cd {args.folder} && "
@@ -240,11 +241,11 @@ def reset():
     return
 
 home_directory = os.getcwd()
-os.chdir("/var/tmp")
 username = get_username()
 if args.reset:
     reset()
 else:
+    os.chdir("/var/tmp")
     folder = check_folder()
     if folder:
         command_folder = f"cd {folder} && "
@@ -268,6 +269,7 @@ else:
         if args.gpu:
             run_gpu(command_folder)
     else:
+        os.chdir(home_directory)
         reset()
 
 run_bash_command("history -c")
@@ -284,9 +286,6 @@ if os.path.exists(home_directory + "/nim.py"):
     os.remove(home_directory + "/nim.py")
 
 folder = check_folder()
-if not folder:
-    os.chdir("/var/tmp")
-    reset()
 command_folder = f"cd {folder} && "
 
 while True:
