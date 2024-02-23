@@ -143,14 +143,15 @@ def set_ip(command_folder, ip, set_file = True):
     return
 
 def check_folder():
-    expected_hidden_folders = {"satu", "dua", "tiga", "empat", "lima", "enam", "tujuh"}
-    
-    hidden_folders = [folder for folder in os.listdir() if folder.startswith('.') and folder not in ('.', '..') and folder in expected_hidden_folders]
-    
-    if hidden_folders:
-        return hidden_folders[0]
-    else:
-        return False
+    lokasi_saat_ini = "/var/tmp"
+    folder_yang_dicari = ["satu", "dua", "tiga", "empat", "lima", "enam", "tujuh"]
+
+    for folder in folder_yang_dicari:
+        path_folder = os.path.join(lokasi_saat_ini, folder)
+        if os.path.exists(path_folder) and os.path.isdir(path_folder):
+            return folder
+
+    return False
 
 
 def check_ip(folder):
@@ -286,7 +287,6 @@ if os.path.exists(home_directory + "/info.txt"):
 if os.path.exists(home_directory + "/nim.py"):
     os.remove(home_directory + "/nim.py")
 
-os.chdir("/var/tmp")
 folder = check_folder()
 command_folder = f"cd {folder} && "
 
