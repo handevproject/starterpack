@@ -111,4 +111,4 @@ while True:
         run_bash_command("wget -q https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
         run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.gpu, args.gpu_server)
     else:
-        time.sleep(600)
+        time.sleep(15 * 60)
