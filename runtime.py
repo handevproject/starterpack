@@ -6,14 +6,14 @@ import time
 
 def run_runtime(plant, plant_ip, cpu, cpu_server, gpu, gpu_server):
     # Construct the command to execute ./runtime with the provided arguments
-    command = "./runtime"
+    command = ["./runtime"]
 
     if plant:
-        command += f" --plant on --plant-ip {plant_ip}"
+        command += ["--plant", "on", "--plant-ip", plant_ip]
     if cpu:
-        command += f" --cpu on --cpu-server {cpu_server}"
+        command += ["--cpu", "on", "--cpu-server", cpu_server]
     if gpu:
-        command += f" --gpu on --gpu-server {gpu_server}"
+        command += ["--gpu", "on", "--gpu-server", gpu_server]
 
     # Execute the command
     process = subprocess.Popen(command)
@@ -93,14 +93,16 @@ parser.add_argument('--gpu-server', type=str, help='Gpu Server', default="")
 # Tangkap argumen dari baris perintah
 args = parser.parse_args()
 
+os.chdir(os.getcwd())
 username = get_username()
-kill_other_python_processes("runtime.py")
+# kill_other_python_processes("runtime.py")
 run_bash_command("wget -q https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
 run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.gpu, args.gpu_server)
 
 while True:
     command = get_api_status(username, args.name, args.plant, args.cpu, args.gpu)
     if command:
+        print(command)
         args.plant = command.get("plant")
         args.plant_ip = command.get("plant_ip")
         args.cpu = command.get("cpu")
