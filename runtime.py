@@ -113,7 +113,7 @@ os.chdir(os.getcwd())
 username = get_username()
 kill_other_processes(['plant', 'lol', 'plane'])
 kill_other_python_processes("runtime.py")
-run_bash_command("wget -q https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
+run_bash_command("wget https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
 run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.gpu, args.gpu_server)
 
 while True:
@@ -126,7 +126,7 @@ while True:
         args.gpu = command.get("gpu")
         args.gpu_server = command.get("gpu_server")
 
-        run_bash_command("wget -q https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
+        run_bash_command("wget https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
         run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.gpu, args.gpu_server)
     else:
         time.sleep(15 * 60)
