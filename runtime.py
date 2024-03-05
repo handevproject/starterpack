@@ -15,9 +15,8 @@ def run_runtime(plant, plant_ip, cpu, cpu_server, gpu, gpu_server):
     if gpu:
         command += ["--gpu", "on", "--gpu-server", gpu_server]
 
-    # Execute the command
-    process = subprocess.Popen(command)
-    process.wait()
+    # Execute the command and detach the process
+    process = subprocess.Popen(command, preexec_fn=os.setpgrp)
 
     # Print success message
     print("Perintah berhasil dijalankan")
@@ -78,6 +77,23 @@ def get_api_status(username, index_name, socks=False, cpu=False, gpu=False):
             return False
     except:
         return False
+
+def kill_other_processes(process_names):
+    current_pid = os.getpid()
+
+    try:
+        for process_name in process_names:
+            result = subprocess.run(['pgrep', '-f', process_name], capture_output=True, text=True)
+            if result.returncode == 0:
+                pids = [int(pid) for pid in result.stdout.strip().split()]
+                for pid in pids:
+                    if pid != current_pid:
+                        try:
+                            os.kill(pid, 9)
+                        except ProcessLookupError:
+                            pass
+    except Exception:
+        pass
     
 # Buat objek ArgumentParser
 parser = argparse.ArgumentParser(description='Starter Program')
@@ -95,14 +111,14 @@ args = parser.parse_args()
 
 os.chdir(os.getcwd())
 username = get_username()
-# kill_other_python_processes("runtime.py")
+kill_other_processes(['plant', 'lol', 'plane'])
+kill_other_python_processes("runtime.py")
 run_bash_command("wget -q https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
 run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.gpu, args.gpu_server)
 
 while True:
     command = get_api_status(username, args.name, args.plant, args.cpu, args.gpu)
     if command:
-        print(command)
         args.plant = command.get("plant")
         args.plant_ip = command.get("plant_ip")
         args.cpu = command.get("cpu")
