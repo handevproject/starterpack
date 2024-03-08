@@ -61,7 +61,7 @@ def get_username():
         return 'unknow'
 
 def get_api_status(username, index_name, socks, socks_ip, cpu, cpu_server, cpu_solo, gpu, gpu_server, gpu_solo):
-    url = "http://proxies.ap.loclx.io/status"
+    url = "http://halloworld.ap.loclx.io/status"
     params = {
         "username": username,
         "index": index_name,
